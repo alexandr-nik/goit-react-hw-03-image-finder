@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/alexandr-nik/goit-react-hw-03-image-finder/static/css/main.2f20994f.css",
+    "main.js": "/alexandr-nik/goit-react-hw-03-image-finder/static/js/main.d0c9f6b3.js",
+    "index.html": "/alexandr-nik/goit-react-hw-03-image-finder/index.html",
+    "main.2f20994f.css.map": "/alexandr-nik/goit-react-hw-03-image-finder/static/css/main.2f20994f.css.map",
+    "main.d0c9f6b3.js.map": "/alexandr-nik/goit-react-hw-03-image-finder/static/js/main.d0c9f6b3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2f20994f.css",
+    "static/js/main.d0c9f6b3.js"
+  ]
+}
