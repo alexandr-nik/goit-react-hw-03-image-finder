@@ -15,7 +15,6 @@ export class Modal extends Component {
   };
   componentDidMount() {
     window.addEventListener('keydown', this.windowEventListner);
-
     disableScroll.on();
   }
   componentWillUnmount() {
@@ -34,7 +33,7 @@ export class Modal extends Component {
   }
 }
 Modal.propTypes = {
- alt:PropTypes.string.isRequired,
- src:PropTypes.string.isRequired,
- closeModal:PropTypes.func.isRequired,
+  alt: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };

@@ -20,7 +20,7 @@ export class App extends PureComponent {
     const { page, q } = this.state;
     const query = q.trim();
     if (query === '') {
-      erroMesage('Please enter somsing');
+      erroMesage('Please enter something');
       this.setState({ loader: false });
       return;
     }
@@ -64,7 +64,7 @@ export class App extends PureComponent {
       <>
         <Searchbar getFindName={this.searchImages} />
         <ImageGallery>
-          <ImageGalleryItem galleryList={galleryList}></ImageGalleryItem>
+          <ImageGalleryItem galleryList={galleryList} />
           {Math.ceil(totalHits / 12) > page && !loader && (
             <Button loadMore={this.loadMore} />
           )}
