@@ -1,30 +1,25 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import disableScroll from 'disable-scroll';
+import './Modal.css';
 export class Modal extends Component {
   closeModalWindow = e => {
     if (e.currentTarget === e.target) {
-      this.closeModal();
+      this.props.closeModal();
     }
   };
-  // preventScroll = e => {
-  //   e.preventDefault();  
-  // };
   windowEventListner = e => {
     if (e.key === 'Escape') {
-      this.closeModal();
+      this.props.closeModal();
     }
   };
-  closeModal() {
-    this.props.closeModal();
-  }
   componentDidMount() {
     window.addEventListener('keydown', this.windowEventListner);
-    // window.addEventListener('wheel', this.preventScroll, { passive: false });
+
     disableScroll.on();
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.windowEventListner);
-    // window.removeEventListener('wheel', this.preventScroll);
     disableScroll.off();
   }
   render() {
@@ -38,3 +33,8 @@ export class Modal extends Component {
     );
   }
 }
+Modal.propTypes = {
+ alt:PropTypes.string.isRequired,
+ src:PropTypes.string.isRequired,
+ closeModal:PropTypes.func.isRequired,
+};

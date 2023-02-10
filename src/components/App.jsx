@@ -1,13 +1,14 @@
-import { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import { AxiosPaxabay } from './ApiPixabay/ApiPixabay';
-import { Button } from './Button/Button';
+import { PureComponent } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { AxiosPaxabay } from './ApiPixabay';
+import { Button } from './Button';
 import { ImageGallery } from './ImageGallery';
 import { ImageGalleryItem } from './ImageGalleryItem';
-import { Loader } from './Loader/Loader';
-import { Searchbar } from './Searchbar/Searchbar';
+import { Loader } from './Loader';
+import { Searchbar } from './Searchbar';
+import { erroMesage } from './errorMessage';
 
-export class App extends Component {
+export class App extends PureComponent {
   state = {
     page: 0,
     q: '',
@@ -17,37 +18,37 @@ export class App extends Component {
   };
   async getImage() {
     const { page, q } = this.state;
-    await AxiosPaxabay(page, q).then(data => {
-      this.setState(prevState => ({
-        galleryList: [...prevState.galleryList, ...data.hits],
-        totalHits: data.totalHits,
-        loader: false,
-      }));
-    });
+    const query = q.trim();
+    if (query === '') {
+      erroMesage('Please enter somsing');
+      this.setState({ loader: false });
+      return;
+    }
+    await AxiosPaxabay(page, query)
+      .then(data => {
+        this.setState(prevState => ({
+          galleryList: [...prevState.galleryList, ...data.hits],
+          totalHits: data.totalHits,
+          loader: false,
+        }));
+      })
+      .catch(e => {
+        erroMesage(e);
+      });
     setTimeout(() => {
       if (!this.state.totalHits) {
-        this.notify();
+        erroMesage('Sorry. Image not found:(');
       }
     }, 0);
   }
-  notify() {
-    return toast.error('Sorry. Image not found:(', {
-      position: 'top-center',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'dark',
-    });
-  }
   loadMore = () => {
-    const page = this.state.page;
-    this.setState({ page: page + 1, loader: true });
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+      loader: true,
+    }));
     setTimeout(() => this.getImage(), 0);
   };
-  getFindName = q => {
+  searchImages = q => {
     this.setState({
       q,
       page: 1,
@@ -58,17 +59,17 @@ export class App extends Component {
     setTimeout(() => this.getImage(), 0);
   };
   render() {
+    const { galleryList, totalHits, page, loader } = this.state;
     return (
       <>
-        <Searchbar getFindName={this.getFindName} />
+        <Searchbar getFindName={this.searchImages} />
         <ImageGallery>
-          <ImageGalleryItem
-            galleryList={this.state.galleryList}
-          ></ImageGalleryItem>
-          {Math.ceil(this.state.totalHits / 12) > this.state.page &&
-            !this.state.loader && <Button loadMore={this.loadMore} />}
-          {this.state.loader && <Loader />}
-          </ImageGallery>
+          <ImageGalleryItem galleryList={galleryList}></ImageGalleryItem>
+          {Math.ceil(totalHits / 12) > page && !loader && (
+            <Button loadMore={this.loadMore} />
+          )}
+          {loader && <Loader />}
+        </ImageGallery>
         <ToastContainer />
       </>
     );

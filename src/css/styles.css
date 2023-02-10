@@ -38,7 +38,7 @@ img {
   padding-bottom: 24px;
 }
 
-/*
+/* /*
  * Стили компонента Searchbar
  */
 .Searchbar {
@@ -118,7 +118,7 @@ img {
 .SearchForm-input::placeholder {
   font: inherit;
   font-size: 18px;
-}
+} */
 
 /*
  * Стили компонента ImageGallery

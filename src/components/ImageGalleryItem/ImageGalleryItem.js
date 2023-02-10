@@ -1,5 +1,7 @@
 import { Modal } from 'components/Modal/Modal';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+import './ImageGalleryItem.css';
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -8,11 +10,11 @@ export class ImageGalleryItem extends Component {
   openModal = index => () => {
     this.setState({ index: index });
   };
-  closeModal () {
+  closeModal() {
     this.setState({
-      index: null, 
+      index: null,
     });
-  };
+  }
   render() {
     const { galleryList } = this.props;
     return (
@@ -31,7 +33,7 @@ export class ImageGalleryItem extends Component {
                   <Modal
                     alt={item.tags}
                     src={item.largeImageURL}
-                    closeModal={()=>(this.closeModal())}
+                    closeModal={() => this.closeModal()}
                   />
                 )}
               </li>
@@ -41,3 +43,11 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
+ImageGalleryItem.propTypes = {
+  galleryList: PropTypes.arrayOf({
+    id: PropTypes.number.isRequired,
+    tags: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+  }).isRequired,
+};

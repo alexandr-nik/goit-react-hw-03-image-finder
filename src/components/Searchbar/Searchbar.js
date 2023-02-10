@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
+import './Searchbar.css'
 
 export class Searchbar extends Component {
   state = {
@@ -7,9 +9,8 @@ export class Searchbar extends Component {
 
    onSubmit = e => {
     e.preventDefault();
-     const { find } = this.state;
-     const {getFindName}= this.props;
-     getFindName(find);
+     const { find } = this.state;    
+     this.props.getFindName(find);
      this.setState({ find: '' });
    
   };
@@ -40,4 +41,7 @@ export class Searchbar extends Component {
       </header>
     );
   }
+}
+Searchbar.propTypes ={
+  getFindName:PropTypes.func.isRequired,
 }

@@ -1,7 +1,8 @@
+import'./Loader.css'
 import { RotatingLines } from 'react-loader-spinner';
 export const Loader = () => {
   return (
-    <li className="box">
+    <li className="Loader">
       <RotatingLines
         strokeColor="#3F51B5"
         strokeWidth="4"
