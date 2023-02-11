@@ -1,1 +1,0 @@
-export {erroMesage} from './errorMessage'

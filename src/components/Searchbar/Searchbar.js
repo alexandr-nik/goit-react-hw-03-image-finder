@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 import { Component } from 'react';
 import './Searchbar.css'
+import { errorMessage } from '../message';
 
 export class Searchbar extends Component {
   state = {
@@ -9,10 +11,14 @@ export class Searchbar extends Component {
 
    onSubmit = e => {
     e.preventDefault();
-     const { find } = this.state;    
-     this.props.getFindName(find);
-     this.setState({ find: '' });
-   
+     const { find } = this.state; 
+     const query = find.trim();
+      if (query === '') {
+      errorMessage('Please enter something');
+      return;
+    }
+     this.props.getFindName(query);
+     this.setState({ find: '' });   
   };
   inputHandle = e => {
     const { name, value } = e.currentTarget;
@@ -37,6 +43,7 @@ export class Searchbar extends Component {
             onChange={this.inputHandle}
           />
         </form>
+        <ToastContainer />
       </header>
     );
   }

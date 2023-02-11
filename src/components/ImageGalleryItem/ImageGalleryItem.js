@@ -44,10 +44,12 @@ export class ImageGalleryItem extends Component {
   }
 }
 ImageGalleryItem.propTypes = {
-  galleryList: PropTypes.arrayOf({
-    id: PropTypes.number.isRequired,
-    tags: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    webformatURL: PropTypes.string.isRequired,
-  }).isRequired,
+  galleryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      tags: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
